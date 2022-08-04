@@ -22,9 +22,17 @@ app.get('/logout', logout);
 app.post('/token/:instance', token);
 app.get('/user/:instance', user);
 
-https.createServer({
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem')
-}, app).listen(port, () => {
+var server;
+
+if ( process.env.NODE_ENV !== 'development' ) {
+  server = app;
+} else {
+  server = https.createServer({
+    key: fs.readFileSync('./ssl/key.pem'),
+    cert: fs.readFileSync('./ssl/cert.pem')
+  }, app);
+}
+
+server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
