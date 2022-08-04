@@ -2,7 +2,7 @@ module.exports = (req, res) => {
   const instance = req.params.instance;
   const client_id = req.params.client_id;
 
-  const redirect_uri = encodeURIComponent('https://127.0.0.1:3000/backdoor');
+  const redirect_uri = encodeURIComponent(`${process.env.CLIENT_URL}/backdoor`);
   const state = encodeURIComponent( JSON.stringify({ instance, client_id }) );
 
   if ( instance && client_id ) {
@@ -12,6 +12,6 @@ module.exports = (req, res) => {
       res.json({ message: 'Instance and client cannot be identified' });
     }
   } else {
-    res.redirect(301, 'https://127.0.0.1:3000/error');
+    res.redirect(301, `${process.env.CLIENT_URL}/error`);
   }
 }

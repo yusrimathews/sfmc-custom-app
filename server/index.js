@@ -6,11 +6,11 @@ const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 9000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors({
-  origin: 'https://127.0.0.1:3000'
+  origin: process.env.CLIENT_URL
 }));
 
 const login = require('./endpoints/login');
