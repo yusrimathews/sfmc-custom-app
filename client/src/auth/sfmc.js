@@ -5,12 +5,12 @@ const SFMC = {
     const response = await axios({
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      url: `https://127.0.0.1:9000/token/${payload.instance}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/token/${payload.instance}`,
       data: {
         'grant_type': 'authorization_code',
         'code': payload.code,
         'client_id': payload.client_id,
-        'redirect_uri': 'https://127.0.0.1:3000/backdoor'
+        'redirect_uri': `${process.env.REACT_APP_PUBLIC_URL}/backdoor`
       }
     });
 
@@ -20,7 +20,7 @@ const SFMC = {
     const response = await axios({
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      url: `https://127.0.0.1:9000/token/${payload.instance}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/token/${payload.instance}`,
       data: {
         'grant_type': 'refresh_token',
         'refresh_token': payload.refresh_token,
@@ -37,7 +37,7 @@ const SFMC = {
         'Content-Type': 'application/json',
         'Authorization': `${payload.token_type} ${payload.access_token}`
       },
-      url: `https://127.0.0.1:9000/user/${payload.instance}`
+      url: `${process.env.REACT_APP_SERVER_URL}/user/${payload.instance}`
     });
 
     callback(response.data);
