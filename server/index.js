@@ -14,12 +14,6 @@ app.use(cors({
   origin: process.env.CLIENT_URL
 }));
 
-app.use(
-  helmet.frameguard({
-    action: 'sameorigin'
-  })
-);
-
 const login = require('./endpoints/login');
 const logout = require('./endpoints/logout');
 const token = require('./endpoints/token');
