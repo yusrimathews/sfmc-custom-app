@@ -8,12 +8,8 @@ module.exports = (req, res) => {
   res.json({ message: 'Test', url: process.env.CLIENT_URL });
 
   // if ( instance && client_id ) {
-  //   try {
-  //     res.redirect(301, `https://${instance}.auth.marketingcloudapis.com/v2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&state=${state}`);
-  //   } catch (error) {
-  //     res.json({ message: 'Instance and client cannot be identified' });
-  //   }
+  //   res.redirect(301, `https://${instance}.auth.marketingcloudapis.com/v2/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}&state=${state}`);
   // } else {
-  //   res.redirect(301, `${process.env.CLIENT_URL}/error`);
+  //   res.json({ message: 'Instance and client cannot be identified' });
   // }
 }
