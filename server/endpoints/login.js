@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   const redirect_uri = encodeURIComponent(`${process.env.CLIENT_URL}/backdoor`);
   const state = encodeURIComponent( JSON.stringify({ instance, client_id }) );
   // req.header('X-Frame-Options', 'SAMEORIGIN');
-  res.json({ message: 'Test' });
+  res.json({ message: 'Test', url: process.env.CLIENT_URL });
   // if ( instance && client_id ) {
   //   try {
   //     res.header('X-Frame-Options', 'SAMEORIGIN');
