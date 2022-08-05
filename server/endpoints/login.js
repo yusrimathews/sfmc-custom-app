@@ -1,9 +1,9 @@
 module.exports = (req, res) => {
-  const instance = req.params.instance;
-  const client_id = req.params.client_id;
+  // const instance = req.params.instance;
+  // const client_id = req.params.client_id;
 
-  const redirect_uri = encodeURIComponent(`${process.env.CLIENT_URL}/backdoor`);
-  const state = encodeURIComponent( JSON.stringify({ instance, client_id }) );
+  // const redirect_uri = encodeURIComponent(`${process.env.CLIENT_URL}/backdoor`);
+  // const state = encodeURIComponent( JSON.stringify({ instance, client_id }) );
 
   res.json({ message: 'Test', url: process.env.CLIENT_URL });
 
