@@ -1,29 +1,27 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const https = require('https');
 const fs = require('fs');
 
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT;
-
-app.use(express.json());
 
 app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      frameSrc: ["'self'", '*.exacttarget.com', '*.auth.marketingcloudapis.com']
+    }
+  },
   frameguard: false
 }));
 
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'", '*.exacttarget.com'],
-    scriptSrc: ["'self'", '*.exacttarget.com'],
-    objectSrc: ["'none'"],
-    imgSrc: ["'self'", '*.exacttarget.com', "'unsafe-inline'"],
-    styleSrc: ["'self'", "'unsafe-inline'"],
-    upgradeInsecureRequests: []
-  }
+app.use(cors({
+  origin: process.env.CLIENT_URL
 }));
+
+app.use(express.json());
 
 const login = require('./endpoints/login');
 const logout = require('./endpoints/logout');
@@ -36,6 +34,7 @@ app.post('/token/:instance', token);
 app.get('/user/:instance', user);
 
 var server;
+var port = process.env.PORT;
 
 if ( process.env.NODE_ENV !== 'development' ) {
   server = app;
