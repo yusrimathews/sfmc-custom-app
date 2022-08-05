@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const https = require('https');
 const fs = require('fs');
 
@@ -12,6 +13,12 @@ app.use(express.json());
 app.use(cors({
   origin: process.env.CLIENT_URL
 }));
+
+app.use(
+  helmet.frameguard({
+    action: 'sameorigin'
+  })
+);
 
 const login = require('./endpoints/login');
 const logout = require('./endpoints/logout');
