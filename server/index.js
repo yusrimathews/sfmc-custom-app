@@ -1,26 +1,19 @@
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
+const helmet = require('helmet');
 const https = require('https');
 const fs = require('fs');
 
-require('dotenv').config();
-
 const app = express();
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      frameSrc: ["'self'", '*.exacttarget.com', '*.auth.marketingcloudapis.com']
-    }
-  },
-  frameguard: false
-}));
+require('dotenv').config();
 
 app.use(cors({
   origin: process.env.CLIENT_URL
 }));
-
+app.use(helmet({
+  frameguard: false
+}));
 app.use(express.json());
 
 const login = require('./endpoints/login');
