@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+const helmet = require('helmet');
 const https = require('https');
 const fs = require('fs');
 
@@ -9,8 +9,20 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(cors({
-  origin: process.env.CLIENT_URL
+
+app.use(helmet({
+  frameguard: false
+}));
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'", '*.exacttarget.com'],
+    scriptSrc: ["'self'", '*.exacttarget.com'],
+    objectSrc: ["'none'"],
+    imgSrc: ["'self'", '*.exacttarget.com', "'unsafe-inline'"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    upgradeInsecureRequests: []
+  }
 }));
 
 const login = require('./endpoints/login');
